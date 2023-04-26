@@ -7,22 +7,24 @@
 rep_mat(x, M = 1, N = 1)
 }
 \arguments{
-\item{x}{a matrix or data.frame object}
+\item{x}{matrix or data frame to be replicated}
 
-\item{M}{an integer specifying the number of times to replicate the rows (default is 1)}
+\item{M}{number of times to replicate the matrix by row}
 
-\item{N}{an integer specifying the number of times to replicate the columns (default is 1)}
+\item{N}{number of times to replicate the matrix by column}
 }
 \value{
-a matrix with replicated rows and/or columns
+replicated matrix or data frame
 }
 \description{
 Creates a matrix by replicating the rows or columns of a given matrix or data.frame
 M (N) times.
+rep_mat - replicate matrix or data frame by row and/or column
 }
 \examples{
 x <- matrix(1:4, ncol = 2)
-rep_mat(x, 2, 1)
-rep_mat(x, 1, 2)
+rep_mat(x, 2, 1) # replicates the matrix x twice by row
+rep_mat(x, 1, 2) # replicates the matrix x twice by column
+rep_mat(x, 2, 2) # replicates the matrix x twice by row and twice by column
 
 }

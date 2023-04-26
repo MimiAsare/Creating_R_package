@@ -41,7 +41,7 @@ rando <- function(x, n = 1, replace = T) {
 #' is_min(c(1,2,3,1), na.rm = FALSE)
 #'
 #' @export
-is_min <- function(x, na.rm = TRUE) {
+is_min <- function(x, na.rm = T) {
   if (na.rm) {
     x <- x[!is.na(x)]
   }
@@ -63,7 +63,7 @@ is_min <- function(x, na.rm = TRUE) {
 #' is_max(c(1,2,3,1), na.rm = FALSE)
 #'
 #' @export
-is_max <- function(x, na.rm = TRUE) {
+is_max <- function(x, na.rm = T) {
   if (na.rm) {
     x <- x[!is.na(x)]
   }
@@ -76,17 +76,19 @@ is_max <- function(x, na.rm = TRUE) {
 #'
 #' Creates a matrix by replicating the rows or columns of a given matrix or data.frame
 #' M (N) times.
+#' rep_mat - replicate matrix or data frame by row and/or column
 #'
-#' @param x a matrix or data.frame object
-#' @param M an integer specifying the number of times to replicate the rows (default is 1)
-#' @param N an integer specifying the number of times to replicate the columns (default is 1)
+#' @param x matrix or data frame to be replicated
+#' @param M number of times to replicate the matrix by row
+#' @param N number of times to replicate the matrix by column
 #'
-#' @return a matrix with replicated rows and/or columns
+#' @return replicated matrix or data frame
 #'
 #' @examples
 #' x <- matrix(1:4, ncol = 2)
-#' rep_mat(x, 2, 1)
-#' rep_mat(x, 1, 2)
+#' rep_mat(x, 2, 1) # replicates the matrix x twice by row
+#' rep_mat(x, 1, 2) # replicates the matrix x twice by column
+#' rep_mat(x, 2, 2) # replicates the matrix x twice by row and twice by column
 #'
 #' @export
 rep_mat <- function(x, M = 1, N = 1) {
@@ -99,15 +101,16 @@ rep_mat <- function(x, M = 1, N = 1) {
   if (M == 1 && N == 1) {
     return(x)
   }
-  if (M > 1 && N > 1) {
-    x <- matrix(rep(x, M*N), nrow = nrow(x)*M, ncol = ncol(x)*N)
-  } else if (M > 1) {
-    x <- matrix(rep(x, M), nrow = nrow(x)*M, ncol = ncol(x))
-  } else if (N > 1) {
-    x <- matrix(rep(x, N), nrow = nrow(x), ncol = ncol(x)*N)
+  x_rep <- x
+  for (i in 1:(M - 1)) {
+    x_rep <- rbind(x_rep, x)
   }
-  return(x)
+  x_rep <- x_rep[, rep(seq_len(ncol(x_rep)), each = N)]
+  return(x_rep)
 }
+
+
+
 #' Returns a character vector containing the classes of each variable in a tibble x.
 #'
 #' @param x A tibble or data frame
@@ -384,7 +387,7 @@ accuracy <- function(pred, truth) {
 #' @examples
 #' pred <- c(1, 0, 1, 1, 0)
 #' truth <- c(0, 0, 1, 1, 1)
-#' F1(pred, truth)
+#' f1(pred, truth)
 #' @export
 f1 <- function(pred, truth) {
   p <- precision(pred, truth)

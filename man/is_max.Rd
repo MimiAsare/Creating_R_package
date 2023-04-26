@@ -4,7 +4,7 @@
 \alias{is_max}
 \title{Test if elements are maximum of a vector}
 \usage{
-is_max(x, na.rm = TRUE)
+is_max(x, na.rm = T)
 }
 \arguments{
 \item{x}{an atomic vector of numeric, integer, or logical values}

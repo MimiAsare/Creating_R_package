@@ -4,7 +4,7 @@
 \alias{is_min}
 \title{Test if elements are minimum of a vector}
 \usage{
-is_min(x, na.rm = TRUE)
+is_min(x, na.rm = T)
 }
 \arguments{
 \item{x}{an atomic vector of numeric, integer, or logical values}

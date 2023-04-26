@@ -4,7 +4,7 @@
 \alias{rando}
 \title{Sample from Vector or Dataframe}
 \usage{
-rando(x, n = 1, replace = TRUE)
+rando(x, n = 1, replace = T)
 }
 \arguments{
 \item{x}{an atomic vector or a dataframe}

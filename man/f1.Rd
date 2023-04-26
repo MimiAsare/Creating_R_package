@@ -20,5 +20,5 @@ Calculate the F1 score based on comparing predicted and true labels
 \examples{
 pred <- c(1, 0, 1, 1, 0)
 truth <- c(0, 0, 1, 1, 1)
-F1(pred, truth)
+f1(pred, truth)
 }
