@@ -4,7 +4,7 @@
 \alias{df_scale}
 \title{Scale numeric variables in a tibble}
 \usage{
-df_scale(x, center = TRUE, scale = TRUE)
+df_scale(x, center = T, scale = T)
 }
 \arguments{
 \item{x}{A tibble or data frame}

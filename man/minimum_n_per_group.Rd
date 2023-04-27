@@ -19,4 +19,5 @@ Calculate minimum n per group for a two-sample t-test
 }
 \examples{
 minimum_n_per_group(0.5)
+
 }

@@ -19,4 +19,5 @@ This function takes two vectors of binary values, the predicted and true labels,
 }
 \examples{
 specificity(c(1,1,0,0), c(1,0,1,0)) # Returns 0.5
+
 }

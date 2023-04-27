@@ -4,7 +4,7 @@
 \alias{rep_mat}
 \title{Replicate matrix rows or columns}
 \usage{
-rep_mat(x, M = 1, N = 1)
+rep_mat(x, M = 2, N = 1)
 }
 \arguments{
 \item{x}{matrix or data frame to be replicated}

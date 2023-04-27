@@ -91,24 +91,27 @@ is_max <- function(x, na.rm = T) {
 #' rep_mat(x, 2, 2) # replicates the matrix x twice by row and twice by column
 #'
 #' @export
-rep_mat <- function(x, M = 1, N = 1) {
+rep_mat = function(x, M=2, N=1) {
   if (!is.matrix(x) && !is.data.frame(x)) {
-    stop("x must be a matrix or data.frame")
+    stop("x must be a matrix or dataframe.")
   }
-  if (M < 1 || N < 1) {
-    stop("M and N must be positive integers")
+  if (!is.numeric(M) || !is.numeric(N)) {
+    stop("M and N must be numeric.")
   }
-  if (M == 1 && N == 1) {
-    return(x)
+  if (M <= 0 || N <= 0) {
+    stop("M and N must be positive.")
   }
-  x_rep <- x
-  for (i in 1:(M - 1)) {
-    x_rep <- rbind(x_rep, x)
-  }
-  x_rep <- x_rep[, rep(seq_len(ncol(x_rep)), each = N)]
-  return(x_rep)
-}
 
+  if (M >= 2 || N >=2) {
+    # Repeat All Rows
+    rows= c(1:nrow(x))
+    cols = c(1:ncol(x))
+    row_times = M
+    cols_times = N
+    x=x[rep(rows,row_times),rep(cols,cols_times)]
+  }
+  return(x)
+}
 
 
 #' Returns a character vector containing the classes of each variable in a tibble x.
@@ -145,29 +148,25 @@ classes <- function(x) {
 #' )
 #' df_scale(my_data)
 #' @export
-df_scale <- function(x, center = TRUE, scale = TRUE) {
-  # select numeric variables from the input tibble
-  num_vars <- dplyr::select_if(x, is.numeric)
 
-  # check if there are any numeric variables in the tibble
-  if (ncol(num_vars) == 0) {
-    stop("No numeric variables found in the input tibble.")
+df_scale = function(x, center = T, scale = T) {
+  if (!is.data.frame(x)) {
+    stop("x must be a data frame")
+  }
+  if (!is.logical(center) || !is.logical(scale)) {
+    stop("center and scale must be logical")
   }
 
-  # center the numeric variables if specified
-  if (center) {
-    num_vars <- dplyr::mutate_all(num_vars, function(y) y - mean(y, na.rm = TRUE))
+  # Select numeric columns
+  numeric_cols = sapply(x, is.numeric)
+
+  # Center and scale numeric columns
+  if (sum(numeric_cols) > 0) {
+    x[, numeric_cols] = scale(x[, numeric_cols], center = center, scale = scale)
   }
 
-  # scale the numeric variables if specified
-  if (scale) {
-    num_vars <- dplyr::mutate_all(num_vars, function(y) y / sd(y, na.rm = TRUE))
-  }
-
-  # bind the scaled numeric variables to the non-numeric variables
-  return(dplyr::bind_cols(dplyr::select_if(x, !is.numeric), num_vars))
+  return(x)
 }
-
 
 #' Calculate the log-likelihood of a normal distribution
 #'
@@ -318,6 +317,8 @@ sensitivity <- function(pred, truth) {
 #' @return A numeric value representing the specificity.
 #' @examples
 #' specificity(c(1,1,0,0), c(1,0,1,0)) # Returns 0.5
+#'
+#' @export
 specificity = function(pred,truth){
   return(sensitivity(!pred,!truth))
 }
@@ -403,6 +404,8 @@ f1 <- function(pred, truth) {
 #' @return Minimum n per group needed for a two-sample t-tesinslibrl
 #' @examples
 #' minimum_n_per_group(0.5)
+#'
+#' @export
 minimum_n_per_group <- function(d, power = 0.8) {
   es <- d
   sig.level <- 0.05
