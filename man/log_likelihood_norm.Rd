@@ -24,5 +24,4 @@ parameters of a normal distribution: the mean and standard deviation.
 \examples{
 log_likelihood_norm(3, 0, 1)
 log_likelihood_norm(c(1, 2, 3), 0, 1)
-
 }

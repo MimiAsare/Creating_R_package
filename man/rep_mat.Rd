@@ -26,5 +26,4 @@ x <- matrix(1:4, ncol = 2)
 rep_mat(x, 2, 1) # replicates the matrix x twice by row
 rep_mat(x, 1, 2) # replicates the matrix x twice by column
 rep_mat(x, 2, 2) # replicates the matrix x twice by row and twice by column
-
 }

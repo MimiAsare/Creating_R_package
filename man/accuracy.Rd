@@ -22,5 +22,4 @@ pred <- c(1, 0, 1, 0, 1)
 truth <- c(1, 1, 0, 0, 1)
 accuracy(pred, truth)
 # Output: 0.6
-
 }

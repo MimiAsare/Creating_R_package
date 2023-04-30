@@ -18,6 +18,6 @@ A numeric value representing the specificity.
 This function takes two vectors of binary values, the predicted and true labels, and returns the specificity, i.e., the proportion of negative cases correctly identified as negative.
 }
 \examples{
-specificity(c(1,1,0,0), c(1,0,1,0)) # Returns 0.5
+specificity(c(1,1,0,0), c(1,0,1,0))
 
 }

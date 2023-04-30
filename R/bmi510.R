@@ -1,5 +1,6 @@
 # bmi510.R
 
+
 #' Sample from Vector or Dataframe
 #'
 #' This function is a wrapper around \code{\link{sample}} that tests whether the input
@@ -9,14 +10,12 @@
 #' @param x an atomic vector or a dataframe
 #' @param n number of samples or rows to be returned (default is 1)
 #' @param replace logical, indicating whether or not sampling should be done with replacement (default is TRUE)
-#'
 #' @return a vector or a dataframe
-#'
 #' @examples
 #' rando(1:10, 3)
 #' rando(mtcars, 5)
-#'
 #' @export
+#' 
 rando <- function(x, n = 1, replace = T) {
   if (is.atomic(x)) {
     return(sample(x, n, replace = replace))
@@ -26,49 +25,51 @@ rando <- function(x, n = 1, replace = T) {
     stop("Argument 'x' must be either an atomic vector or a dataframe.")
   }
 }
-#' Test if elements are minimum of a vector
+
+
+#' Check if Values in a Vector are the Minimum Value
 #'
-#' Returns a logical vector indicating whether the elements of the input vector are
-#' equal to its minimum value.
+#' This function checks if the values in a vector are equal to the minimum value
+#' of the vector. The minimum value can be calculated with or without NA values.
 #'
-#' @param x an atomic vector of numeric, integer, or logical values
-#' @param na.rm a logical value indicating whether missing values should be removed (default is TRUE)
-#'
-#' @return a logical vector of the same length as x
-#'
+#' @param x a vector to test
+#' @param na.rm logical; should missing values (NA) be removed before calculating the minimum?
+#' @return a logical vector indicating whether the values in \code{x} are equal to the minimum value of \code{x}
 #' @examples
-#' is_min(c(1,2,3,1))
-#' is_min(c(1,2,3,1), na.rm = FALSE)
-#'
+#' is_min(c(1, 2, 3, 1, 4, 5, 6, 7, 8, 8))
+#' is_min(c(1, 2, 3, 1, 4, NA, 6, 7, 8, 8), na.rm = T)
 #' @export
+#' 
 is_min <- function(x, na.rm = T) {
+  # define a vector for testing
   if (na.rm) {
     x <- x[!is.na(x)]
   }
-  x == min(x)
+  min_val <- min(x, na.rm = T)
+  x == min_val
 }
 
-#' Test if elements are maximum of a vector
+
+#' Check if Values in a Vector are the Maximum Value
 #'
-#' Returns a logical vector indicating whether the elements of the input vector are
-#' equal to its maximum value.
+#' This function checks if the values in a vector are equal to the maximum value
+#' of the vector. The maximum value can be calculated with or without NA values.
 #'
-#' @param x an atomic vector of numeric, integer, or logical values
-#' @param na.rm a logical value indicating whether missing values should be removed (default is TRUE)
-#'
-#' @return a logical vector of the same length as x
-#'
+#' @param x a vector to test
+#' @param na.rm logical; should missing values (NA) be removed before calculating the maximum?
+#' @return a logical vector indicating whether the values in \code{x} are equal to the maximum value of \code{x}
 #' @examples
-#' is_max(c(1,2,3,1))
-#' is_max(c(1,2,3,1), na.rm = FALSE)
-#'
+#' is_max(c(1, 2, 3, 1, 4, 5, 6, 7, 8, 8))
+#' is_max(c(1, 2, 3, 1, 4, NA, 6, 7, 8, 8), na.rm = TRUE)
 #' @export
+#' 
 is_max <- function(x, na.rm = T) {
+  # define a vector for testing
   if (na.rm) {
     x <- x[!is.na(x)]
   }
-  x == max(x)
-  return(x)
+  max_val <- max(x, na.rm = T)
+  x == max_val
 }
 
 
@@ -89,8 +90,8 @@ is_max <- function(x, na.rm = T) {
 #' rep_mat(x, 2, 1) # replicates the matrix x twice by row
 #' rep_mat(x, 1, 2) # replicates the matrix x twice by column
 #' rep_mat(x, 2, 2) # replicates the matrix x twice by row and twice by column
-#'
 #' @export
+#' 
 rep_mat = function(x, M=2, N=1) {
   if (!is.matrix(x) && !is.data.frame(x)) {
     stop("x must be a matrix or dataframe.")
@@ -128,10 +129,13 @@ rep_mat = function(x, M=2, N=1) {
 #' classes(my_data)
 #' # Output: [1] "character" "numeric"   "numeric"
 #' @export
+#' 
 classes <- function(x) {
-  results<-sapply(x, class)
-  return(results)
+  classes <- sapply(x, class)
+  names(classes) <- names(x)
+  return(classes)
 }
+
 
 #' Scale numeric variables in a tibble
 #'
@@ -156,7 +160,6 @@ df_scale = function(x, center = T, scale = T) {
   if (!is.logical(center) || !is.logical(scale)) {
     stop("center and scale must be logical")
   }
-
   # Select numeric columns
   numeric_cols = sapply(x, is.numeric)
 
@@ -164,9 +167,9 @@ df_scale = function(x, center = T, scale = T) {
   if (sum(numeric_cols) > 0) {
     x[, numeric_cols] = scale(x[, numeric_cols], center = center, scale = scale)
   }
-
   return(x)
 }
+
 
 #' Calculate the log-likelihood of a normal distribution
 #'
@@ -176,20 +179,20 @@ df_scale = function(x, center = T, scale = T) {
 #' @param x a numeric vector of observations
 #' @param mean the mean of the normal distribution
 #' @param sd the standard deviation of the normal distribution
-#'
 #' @return a numeric value representing the log-likelihood of the observations given the
 #'         parameters of the normal distribution
 #'
 #' @examples
 #' log_likelihood_norm(3, 0, 1)
 #' log_likelihood_norm(c(1, 2, 3), 0, 1)
-#'
 #' @importFrom stats dnorm
 #' @export
+#' 
 log_likelihood_norm <- function(x, mean, sd) {
   ll <- sum(log(dnorm(x, mean, sd)))
   return(ll)
 }
+
 
 #' Calculate the log-likelihood of a uniform distribution
 #'
@@ -232,6 +235,7 @@ log_likelihood_unif <- function(x, min, max) {
 #'
 #' @importFrom stats dchisq
 #' @export
+#' 
 log_likelihood_chisq <- function(x, df) {
   ll <- sum(log(dchisq(x, df)))
   return(ll)
@@ -256,30 +260,24 @@ log_likelihood_chisq <- function(x, df) {
 #' @export
 #'
 log_likelihood_f <- function(x, df1, df2) {
-  const <- lgamma((df1 + df2) / 2) - lgamma(df1 / 2) - lgamma(df2 / 2)
-  ll <- const + ((df1 / 2) * log(df1 * x / (df1 * x + df2))) + ((df2 / 2) * log(df2 / (df1 * x + df2)))
-  return(sum(ll, na.rm = TRUE))
+  n <- length(x)
+  loglik <- sum(df(x, df1, df2, log = TRUE))
+  return(loglik)
 }
 
 
-#' Returns the log-likelihood of a sample x under the t-density
+#' Calculate Log-Likelihood for t-Distribution
 #'
-#' @param x a numeric vector of sample data
-#' @param df degrees of freedom
+#' This function calculates the log-likelihood of a t-distribution with a given degrees of freedom parameter
+#' and a given set of data.
 #'
-#' @return the log-likelihood of the sample x under the t-density
-#'
-#' @details Computes the log-likelihood of the sample x under the t-density using the standard parameterization described in ?dt.
-#'
+#' @param x a numeric vector of data
+#' @param df degrees of freedom of the t-distribution
+#' @return the log-likelihood of the data assuming a t-distribution with the given degrees of freedom
 #' @examples
-#' # Generate a random sample from t-distribution
-#' set.seed(123)
-#' x <- rt(100, df = 5)
-#'
-#' # Compute the log-likelihood of the sample under the t-density
-#' log_likelihood_t(x, df = 5)
-#'
+#' log_likelihood_t(c(1, 2, 3, 4, 5), df = 3)
 #' @export
+#' 
 log_likelihood_t <- function(x, df) {
   const <- lgamma((df + 1) / 2) - lgamma(df / 2) - 0.5 * log(df * pi)
   ll <- const - ((df + 1) / 2) * log(1 + (x^2 / df))
@@ -301,10 +299,10 @@ log_likelihood_t <- function(x, df) {
 #' truth <- c(1,0,1,0,0,0,0)
 #' sensitivity(pred, truth)
 #' @export
+#' 
 sensitivity <- function(pred, truth) {
   true_positives <- pred & truth
   return(sum(true_positives) / sum(truth))
-
 }
 
 
@@ -316,9 +314,10 @@ sensitivity <- function(pred, truth) {
 #' @param truth A vector of true binary values.
 #' @return A numeric value representing the specificity.
 #' @examples
-#' specificity(c(1,1,0,0), c(1,0,1,0)) # Returns 0.5
+#' specificity(c(1,1,0,0), c(1,0,1,0))
 #'
 #' @export
+#' 
 specificity = function(pred,truth){
   return(sensitivity(!pred,!truth))
 }
@@ -333,6 +332,7 @@ specificity = function(pred,truth){
 #' @examples
 #' precision(c(1,1,0,1),c(1,0,0,1))
 #' @export
+#' 
 precision = function(pred,truth){
   P = sum(truth)
   TP = sum(pred&truth)
@@ -345,15 +345,13 @@ precision = function(pred,truth){
 #'
 #' @param pred A vector of predicted labels (0/1)
 #' @param truth A vector of true labels (0/1)
-#'
 #' @return The recall (sensitivity) of the prediction
-#'
 #' @examples
 #' truth <- c(1, 1, 0, 0, 1, 0, 1, 1, 1, 0)
 #' pred <- c(1, 0, 0, 1, 1, 0, 1, 1, 1, 0)
 #' recall(pred, truth)
-#'
 #' @export
+#' 
 recall <- function(pred, truth) {
   true_positives = pred&truth
   return(sum(true_positives)/sum(truth))
@@ -366,15 +364,14 @@ recall <- function(pred, truth) {
 #'
 #' @param pred A vector of predicted labels (0 or 1)
 #' @param truth A vector of true labels (0 or 1)
-#'
 #' @return The accuracy of the model (a value between 0 and 1)
 #' @examples
 #' pred <- c(1, 0, 1, 0, 1)
 #' truth <- c(1, 1, 0, 0, 1)
 #' accuracy(pred, truth)
 #' # Output: 0.6
-#'
 #' @export
+#' 
 accuracy <- function(pred, truth) {
   return(sum(pred == truth) / length(truth))
 }
@@ -390,6 +387,7 @@ accuracy <- function(pred, truth) {
 #' truth <- c(0, 0, 1, 1, 1)
 #' f1(pred, truth)
 #' @export
+#' 
 f1 <- function(pred, truth) {
   p <- precision(pred, truth)
   r <- sensitivity(pred, truth)
@@ -397,22 +395,26 @@ f1 <- function(pred, truth) {
 }
 
 
-#' Calculate minimum n per group for a two-sample t-test
+#' Calculate Minimum Sample Size per Group for t-Test at Given Power
 #'
-#' @param d Expected Cohen's d
-#' @param power Desired statistical power
-#' @return Minimum n per group needed for a two-sample t-tesinslibrl
+#' This function calculates the minimum sample size per group required to detect a given effect size with a t-test
+#' at a given power level and significance level.
+#'
+#' @param d effect size
+#' @param power desired power (default: 0.8)
+#' @return minimum sample size per group required to detect the given effect size with the given power level and significance level
 #' @examples
-#' minimum_n_per_group(0.5)
-#'
+#' minimum_n_per_group(0.5, power = 0.9)
+#' @importFrom pwr pwr.t.test
 #' @export
+#' 
 minimum_n_per_group <- function(d, power = 0.8) {
   es <- d
   sig.level <- 0.05
   power <- power
-
-  return(pwr::pwr.t.test(d = es, sig.level = sig.level, power = power, type = "two.sample")$n)
+  return(ceiling(pwr::pwr.t.test(d = es, sig.level = sig.level, power = power, type = "two.sample")$n))
 }
+
 
 
 #' Calculate the R-squared statistic between predicted and ground truth continuous variables
@@ -420,11 +422,10 @@ minimum_n_per_group <- function(d, power = 0.8) {
 #' @param pred predicted values
 #' @param truth ground truth values
 #' @return the R-squared statistic
-#'
 #' @examples
 #' r2(c(1, 2, 3), c(1, 3, 5))
-#'
 #' @export
+#' 
 r2 <- function(pred, truth) {
   SSres <- sum((truth - pred)^2)
   SStot <- sum((truth - mean(truth))^2)
@@ -437,9 +438,7 @@ r2 <- function(pred, truth) {
 #' @param pred The predicted values.
 #' @param truth The ground truth values.
 #' @param n_p The number of model parameters, excluding the intercept.
-#'
 #' @return The adjusted r-squared statistic.
-#'
 #' @examples
 #' # Generate some example data
 #' set.seed(123)
@@ -448,16 +447,15 @@ r2 <- function(pred, truth) {
 #'
 #' # Calculate the adjusted R-squared
 #' adjR2(pred, truth, 1)
-#'
 #' @seealso \code{\link{r2}}
-#'
 #' @export
-adjR2 <- function(pred, truth, n_p) {
+#' 
+adj_R2 <- function(pred, truth, n_p) {
   n <- length(truth)
   SSres <- sum((truth - pred)^2)
   SStot <- sum((truth - mean(truth))^2)
   R2 <- 1 - SSres/SStot
-  adjR2 <- 1 - ((1-R2)*(n-1))/(n-n_p-1)
-  return(adjR2)
+  adj_R2 <- 1 - ((1-R2)*(n-1))/(n-n_p-1)
+  return(adj_R2)
 }
 

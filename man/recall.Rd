@@ -21,5 +21,4 @@ Calculate recall (same as sensitivity) based on comparing predicted and training
 truth <- c(1, 1, 0, 0, 1, 0, 1, 1, 1, 0)
 pred <- c(1, 0, 0, 1, 1, 0, 1, 1, 1, 0)
 recall(pred, truth)
-
 }

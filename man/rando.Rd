@@ -24,5 +24,4 @@ as appropriate.
 \examples{
 rando(1:10, 3)
 rando(mtcars, 5)
-
 }

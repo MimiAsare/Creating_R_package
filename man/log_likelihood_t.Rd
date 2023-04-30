@@ -2,30 +2,22 @@
 % Please edit documentation in R/bmi510.R
 \name{log_likelihood_t}
 \alias{log_likelihood_t}
-\title{Returns the log-likelihood of a sample x under the t-density}
+\title{Calculate Log-Likelihood for t-Distribution}
 \usage{
 log_likelihood_t(x, df)
 }
 \arguments{
-\item{x}{a numeric vector of sample data}
+\item{x}{a numeric vector of data}
 
-\item{df}{degrees of freedom}
+\item{df}{degrees of freedom of the t-distribution}
 }
 \value{
-the log-likelihood of the sample x under the t-density
+the log-likelihood of the data assuming a t-distribution with the given degrees of freedom
 }
 \description{
-Returns the log-likelihood of a sample x under the t-density
-}
-\details{
-Computes the log-likelihood of the sample x under the t-density using the standard parameterization described in ?dt.
+This function calculates the log-likelihood of a t-distribution with a given degrees of freedom parameter
+and a given set of data.
 }
 \examples{
-# Generate a random sample from t-distribution
-set.seed(123)
-x <- rt(100, df = 5)
-
-# Compute the log-likelihood of the sample under the t-density
-log_likelihood_t(x, df = 5)
-
+log_likelihood_t(c(1, 2, 3, 4, 5), df = 3)
 }

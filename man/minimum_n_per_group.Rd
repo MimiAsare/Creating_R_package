@@ -2,22 +2,22 @@
 % Please edit documentation in R/bmi510.R
 \name{minimum_n_per_group}
 \alias{minimum_n_per_group}
-\title{Calculate minimum n per group for a two-sample t-test}
+\title{Calculate Minimum Sample Size per Group for t-Test at Given Power}
 \usage{
 minimum_n_per_group(d, power = 0.8)
 }
 \arguments{
-\item{d}{Expected Cohen's d}
+\item{d}{effect size}
 
-\item{power}{Desired statistical power}
+\item{power}{desired power (default: 0.8)}
 }
 \value{
-Minimum n per group needed for a two-sample t-tesinslibrl
+minimum sample size per group required to detect the given effect size with the given power level and significance level
 }
 \description{
-Calculate minimum n per group for a two-sample t-test
+This function calculates the minimum sample size per group required to detect a given effect size with a t-test
+at a given power level and significance level.
 }
 \examples{
-minimum_n_per_group(0.5)
-
+minimum_n_per_group(0.5, power = 0.9)
 }

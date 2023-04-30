@@ -2,24 +2,23 @@
 % Please edit documentation in R/bmi510.R
 \name{is_min}
 \alias{is_min}
-\title{Test if elements are minimum of a vector}
+\title{Check if Values in a Vector are the Minimum Value}
 \usage{
 is_min(x, na.rm = T)
 }
 \arguments{
-\item{x}{an atomic vector of numeric, integer, or logical values}
+\item{x}{a vector to test}
 
-\item{na.rm}{a logical value indicating whether missing values should be removed (default is TRUE)}
+\item{na.rm}{logical; should missing values (NA) be removed before calculating the minimum?}
 }
 \value{
-a logical vector of the same length as x
+a logical vector indicating whether the values in \code{x} are equal to the minimum value of \code{x}
 }
 \description{
-Returns a logical vector indicating whether the elements of the input vector are
-equal to its minimum value.
+This function checks if the values in a vector are equal to the minimum value
+of the vector. The minimum value can be calculated with or without NA values.
 }
 \examples{
-is_min(c(1,2,3,1))
-is_min(c(1,2,3,1), na.rm = FALSE)
-
+is_min(c(1, 2, 3, 1, 4, 5, 6, 7, 8, 8))
+is_min(c(1, 2, 3, 1, 4, NA, 6, 7, 8, 8), na.rm = T)
 }

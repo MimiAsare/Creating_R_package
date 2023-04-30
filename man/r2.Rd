@@ -19,5 +19,4 @@ Calculate the R-squared statistic between predicted and ground truth continuous 
 }
 \examples{
 r2(c(1, 2, 3), c(1, 3, 5))
-
 }
