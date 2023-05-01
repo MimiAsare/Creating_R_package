@@ -12,7 +12,7 @@ r2(pred, truth)
 \item{truth}{ground truth values}
 }
 \value{
-the R-squared statistic
+The R-squared statistic
 }
 \description{
 Calculate the R-squared statistic between predicted and ground truth continuous variables

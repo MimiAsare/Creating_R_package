@@ -7,9 +7,9 @@
 minimum_n_per_group(d, power = 0.8)
 }
 \arguments{
-\item{d}{effect size}
+\item{d}{expected Cohen’s d.}
 
-\item{power}{desired power (default: 0.8)}
+\item{power}{desired power}
 }
 \value{
 minimum sample size per group required to detect the given effect size with the given power level and significance level

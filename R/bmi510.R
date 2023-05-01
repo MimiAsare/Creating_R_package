@@ -117,7 +117,7 @@ rep_mat = function(x, M=2, N=1) {
 
 #' Returns a character vector containing the classes of each variable in a tibble x.
 #'
-#' @param x A tibble or data frame
+#' @param x A tibble 
 #' @return A character vector containing the classes of each variable in \code{x}
 #' @examples
 #' my_data <- tibble::tribble(
@@ -369,7 +369,6 @@ recall <- function(pred, truth) {
 #' pred <- c(1, 0, 1, 0, 1)
 #' truth <- c(1, 1, 0, 0, 1)
 #' accuracy(pred, truth)
-#' # Output: 0.6
 #' @export
 #' 
 accuracy <- function(pred, truth) {
@@ -400,8 +399,8 @@ f1 <- function(pred, truth) {
 #' This function calculates the minimum sample size per group required to detect a given effect size with a t-test
 #' at a given power level and significance level.
 #'
-#' @param d effect size
-#' @param power desired power (default: 0.8)
+#' @param d expected Cohen’s d.
+#' @param power desired power
 #' @return minimum sample size per group required to detect the given effect size with the given power level and significance level
 #' @examples
 #' minimum_n_per_group(0.5, power = 0.9)
@@ -421,7 +420,7 @@ minimum_n_per_group <- function(d, power = 0.8) {
 #'
 #' @param pred predicted values
 #' @param truth ground truth values
-#' @return the R-squared statistic
+#' @return The R-squared statistic
 #' @examples
 #' r2(c(1, 2, 3), c(1, 3, 5))
 #' @export

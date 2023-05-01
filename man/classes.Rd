@@ -7,7 +7,7 @@
 classes(x)
 }
 \arguments{
-\item{x}{A tibble or data frame}
+\item{x}{A tibble}
 }
 \value{
 A character vector containing the classes of each variable in \code{x}
